@@ -64,3 +64,11 @@ server {
 
 ## 启动服务
 `php artisan swoole:http start`
+
+
+# 二次开发
+
+### 生成API文档
+> 为`dingo/api`开发API接口之后需要生成接口文档
+`php artisan api:docs --output-file=documentAPI.md`
+

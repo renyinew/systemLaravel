@@ -104,8 +104,6 @@ $api->version('v1', [
         $api->group([
             'namespace' => '\Article'
         ], function($api){
-            //获取文章分类select项
-            $api->get('article/select', 'CategoryController@select');
             //添加
             $api->post('article', 'ArticleController@create');
             //获取文章信息，单数

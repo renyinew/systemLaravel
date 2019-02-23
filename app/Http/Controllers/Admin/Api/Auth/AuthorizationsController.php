@@ -15,6 +15,12 @@ class AuthorizationsController extends Controller
 {
     /**
      * 登录授权
+     * @Resource("authorizations")
+     * @Post("authorizations")
+     * @Versions({"v1"})
+     * @Request({"grant_type": password, "client_id": client id, "client_secret": client secret, "username": username, "password": password, "scope":})
+     * @Response({"token_type": "Bearer", "expires_in": xxx, "access_token": "xxx", "refresh_token": "xxx" }, headers={})
+     *
      * @param AuthorizationRequest $originRequest
      * @param AuthorizationServer $server
      * @param ServerRequestInterface $serverRequest
