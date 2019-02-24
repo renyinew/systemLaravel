@@ -66,6 +66,10 @@ server {
 ## 启动服务
 `php artisan swoole:http start`
 
+## API Document
+[documentAPI](documentAPI.md)
+
+
 
 # 二次开发
 
