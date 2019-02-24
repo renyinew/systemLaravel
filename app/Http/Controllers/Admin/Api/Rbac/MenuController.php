@@ -6,12 +6,19 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\Api\Controller;
 use App\Models\Admin\Api\Menu;
 
+/**
+ * @Resource("menu")
+ */
 class MenuController extends Controller
 {
     /**
-     * 获取分类的信息格式化。
+     * 获取下拉菜单数据
+     * @Resource("menu", uri="/menu")
+     * @Get("/menu/select")
+     * @Versions({"v1"})
+     * @Request(headers={"Authorization": "Bearer xxx"})
+     *
      * @param Menu $menu
-     * 获取所有分类(包含顶级)
      * $menus = $menu->find(1)->thisMenu->toArray();
      * @return mixed
      */
@@ -25,8 +32,12 @@ class MenuController extends Controller
     }
 
     /**
-     * 侧栏数据返回。
-     * 获取可用分类(不包含顶级)
+     * 侧栏数据返回(不包含顶级)。
+     * @Resource("menu", uri="/sidebar")
+     * @Get("/sidebar")
+     * @Versions({"v1"})
+     * @Request(headers={"Authorization": "Bearer xxx"})
+     *
      * $menus = $menu->find(1)->childMenu->toArray()
      * @param Menu $menu
      * @return mixed

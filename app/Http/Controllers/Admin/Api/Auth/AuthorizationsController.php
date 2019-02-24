@@ -11,15 +11,18 @@ use App\Http\Controllers\Admin\Api\Controller;
 use League\OAuth2\Server\Exception\OAuthServerException;
 use League\OAuth2\Server\RequestTypes\AuthorizationRequest;
 
+
+/**
+ * @Resource("Authorization")
+ */
 class AuthorizationsController extends Controller
 {
     /**
      * 登录授权
-     * @Resource("authorizations")
-     * @Post("authorizations")
+     * @Resource("Authorization", uri="/authorizations")
+     * @Post("/authorizations")
      * @Versions({"v1"})
-     * @Request({"grant_type": password, "client_id": client id, "client_secret": client secret, "username": username, "password": password, "scope":})
-     * @Response({"token_type": "Bearer", "expires_in": xxx, "access_token": "xxx", "refresh_token": "xxx" }, headers={})
+     * @Request({"username": "foo", "password": "bar", "client_id": "client id", "client_secret": "client secret", "grant_type": "password", "scope": ""})
      *
      * @param AuthorizationRequest $originRequest
      * @param AuthorizationServer $server
@@ -61,10 +64,5 @@ class AuthorizationsController extends Controller
         } else {
             return $this->response->errorUnauthorized('The token is invalid.');
         }
-    }
-
-    public function test()
-    {
-        echo 1;
     }
 }
