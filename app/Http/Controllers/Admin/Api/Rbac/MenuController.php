@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin\Api\Rbac;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\Api\Controller;
 use App\Models\Admin\Api\Menu;
+use App\Http\Requests\Admin\Api\Rbac\StoreMenuCreate;
+use App\Http\Requests\Admin\Api\Rbac\StoreMenuUpdate;
+use App\Http\Resources\Admin\Api\Rbac\MenuResource;
 
 /**
  * @Resource("menu")
@@ -12,89 +15,85 @@ use App\Models\Admin\Api\Menu;
 class MenuController extends Controller
 {
     /**
-     * 获取下拉菜单数据
-     * @Resource("menu", uri="/menu")
-     * @Get("/menu/select")
-     * @Versions({"v1"})
-     * @Request(headers={"Authorization": "Bearer xxx"})
-     *
      * @param Menu $menu
-     * $menus = $menu->find(1)->thisMenu->toArray();
-     * @return mixed
+     * @return \Illuminate\Http\JsonResponse
      */
     public function select(Menu $menu)
     {
         //获取包含顶级的所有树状数据
-        $menus = $menu->find(1)->thisMenu->toArray();
+        $menus = $menu->findOrFail(1)->thisMenu->toArray();
         $menus = [$menus];
         $array = $this->recursive($menus);
         //数组生成json响应
-        return response()->json($array)->setStatusCode(201);
+        return response()->json($array)->setStatusCode(200);
     }
 
     /**
-     * 侧栏数据返回(不包含顶级)。
-     * @Resource("menu", uri="/sidebar")
-     * @Get("/sidebar")
-     * @Versions({"v1"})
-     * @Request(headers={"Authorization": "Bearer xxx"})
-     *
-     * $menus = $menu->find(1)->childMenu->toArray()
      * @param Menu $menu
-     * @return mixed
+     * @return \Illuminate\Http\JsonResponse
      */
     public function sidebar(Menu $menu)
     {
         //获取不含顶级的所有树状数据
-        $menus = $menu->find(1)->childMenu->toArray();
-        return response()->json($menus)->setStatusCode(201);
+        $menus = $menu->findOrFail(1)->childMenu->toArray();
+        return response()->json($menus)->setStatusCode(200);
     }
 
-
     /**
-     * 创建分类
      * @param StoreMenuCreate $create
      * @param Menu $menu
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function create(StoreMenuCreate $create, Menu $menu)
     {
         $model = $menu->create($create->all());
-
-        return new MenuTransformer($model);
+        $response = new MenuResource($model);
+        return response()->json($response)->setStatusCode(201);
     }
 
     /**
-     * 获取单个分类信息
      * @param $id
      * @param Menu $menu
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function view($id, Menu $menu)
     {
-        try{
-            $model = $menu->findOrFail($id);
-            return $this->response->item($model, new MenuTransformer())
-                ->setStatusCode(201);
-        }catch(ModelNotFoundException $exception){
-            throw new NotFoundHttpException('该菜单不存在');
-        }
+        $model = $menu->findOrFail($id);
+        $response = new MenuResource($model);
+        return response()->json($response)->setStatusCode(201);
     }
 
-
-    public function lists()
+    /**
+     * @param Menu $menu
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function list(Menu $menu)
     {
-
+        $menus = $menu->findOrFail(1)->childMenu->toArray();
+        return response()->json($menus)->setStatusCode(200);
     }
 
-    public function update()
+    /**
+     * @param $id
+     * @param StoreMenuUpdate $update
+     * @param Menu $menu
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update($id, StoreMenuUpdate $update, Menu $menu)
     {
-
+        $menu->findOrFail($id)->update($update->all());
+        return response()->json()->setStatusCode(201);
     }
 
-    public function delete()
+    /**
+     * @param $id
+     * @param Menu $menu
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function delete($id, Menu $menu)
     {
-
+        $menu->findOrFail($id)->delete();
+        return response()->json()->setStatusCode(201);
     }
 
     /**
