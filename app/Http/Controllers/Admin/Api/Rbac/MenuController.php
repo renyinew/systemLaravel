@@ -28,7 +28,8 @@ class MenuController extends Controller
         $menus = $menu->find(1)->thisMenu->toArray();
         $menus = [$menus];
         $array = $this->recursive($menus);
-        return $this->response->array($array)->setStatusCode(201);
+        //数组生成json响应
+        return response()->json($array)->setStatusCode(201);
     }
 
     /**
@@ -46,7 +47,7 @@ class MenuController extends Controller
     {
         //获取不含顶级的所有树状数据
         $menus = $menu->find(1)->childMenu->toArray();
-        return $this->response->array($menus)->setStatusCode(201);
+        return response()->json($menus)->setStatusCode(201);
     }
 
 
@@ -60,8 +61,7 @@ class MenuController extends Controller
     {
         $model = $menu->create($create->all());
 
-        return $this->response->item($model, new MenuTransformer())
-            ->setStatusCode(201);
+        return new MenuTransformer($model);
     }
 
     /**

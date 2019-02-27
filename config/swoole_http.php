@@ -71,7 +71,7 @@ return [
     | Console output will be transferred to response content if enabled.
     |--------------------------------------------------------------------------
     */
-    'ob_output' => env('SWOOLE_OB_OUTPUT', true),
+    'ob_output' => env('SWOOLE_OB_OUTPUT', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -90,8 +90,7 @@ return [
     |--------------------------------------------------------------------------
     */
     'instances' => [
-        //
-        'auth',
+        'auth', 'log'
     ],
 
     /*
@@ -101,6 +100,8 @@ return [
     */
     'providers' => [
         Illuminate\Pagination\PaginationServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
+        App\Providers\AppServiceProvider::class,
         //Solve the error:`Auth guard driver [api] is not defined.`
         Laravel\Passport\PassportServiceProvider::class
     ],

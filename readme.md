@@ -67,13 +67,13 @@ server {
 `php artisan swoole:http start`
 
 ## API Document
-[documentAPI](documentAPI.md)
+[api document](public/docs)
 
 
 
 # 二次开发
 
 ### 生成API文档
-> 为`dingo/api`开发API接口之后需要生成接口文档
-`php artisan api:docs --output-file=documentAPI.md`
+> 生成API文档
+`php artisan apidoc:rebuild`
 

@@ -11,11 +11,10 @@ use App\Http\Controllers\Admin\Api\Controller;
 use League\OAuth2\Server\Exception\OAuthServerException;
 use League\OAuth2\Server\RequestTypes\AuthorizationRequest;
 
-
 /**
  * @Resource("Authorization")
  */
-class AuthorizationsController extends Controller
+class AuthorizationController extends Controller
 {
     /**
      * 登录授权
@@ -34,8 +33,12 @@ class AuthorizationsController extends Controller
         try {
             return $server->respondToAccessTokenRequest($serverRequest, new Psr7Response)->withStatus(201);
         } catch(OAuthServerException $e) {
-            return $this->response->errorUnauthorized($e->getMessage());
+            return response()->json([
+                "message" => $e->getHttpStatusCode() . ' ' . $e->getMessage(),
+                "status_code" => $e->getHttpStatusCode()
+            ])->setStatusCode($e->getHttpStatusCode());
         }
+
     }
 
     /**
@@ -44,21 +47,24 @@ class AuthorizationsController extends Controller
      * @param ServerRequestInterface $serverRequest
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function update(AuthorizationServer $server, ServerRequestInterface $serverRequest)
+    public function refresh(AuthorizationServer $server, ServerRequestInterface $serverRequest)
     {
         try {
             return $server->respondToAccessTokenRequest($serverRequest, new Psr7Response);
         } catch(OAuthServerException $e) {
-            return $this->response->errorUnauthorized($e->getMessage());
+            return response()->json([
+                "message" => $e->getHttpStatusCode() . ' ' . $e->getMessage(),
+                "status_code" => $e->getHttpStatusCode()
+            ])->setStatusCode($e->getHttpStatusCode());
         }
     }
 
     /**
-     * @return \Dingo\Api\Http\Response|void
+     *
      */
     public function destroy()
     {
-        if (!empty($this->user())) {
+        if (!empty($this->user)) {
             $this->user()->token()->revoke();
             return $this->response->noContent();
         } else {

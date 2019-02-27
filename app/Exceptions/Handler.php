@@ -4,9 +4,11 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Auth\AuthenticationException;
 
 class Handler extends ExceptionHandler
 {
+
     /**
      * A list of the exception types that are not reported.
      *
@@ -34,6 +36,10 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
+        // 检查token
+        if($exception instanceof AuthenticationException) {
+            abort(401, $exception->getMessage());
+        }
         parent::report($exception);
     }
 
@@ -46,6 +52,25 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+        // Determine whether it is an API interface
+        if($request->is('api/*')) {
+            $response = [];
+            $error = $this->convertExceptionToResponse($exception);
+            $response['message'] = $exception->getMessage();
+            $response['status_code'] = $error->getStatusCode();
+            if(config('app.debug')) {
+                if($error->getStatusCode() >= 500) {
+                    $response['debug']['line'] = $exception->getLine(); // error line
+                    $response['debug']['file'] = $exception->getFile(); // error file
+                    $response['debug']['class'] = get_class($exception); // error position
+                    $response['debug']['trace'] = explode("\n", $exception->getTraceAsString()); //Error stack
+                }
+            }
+            // response api
+            return response()->json($response, $error->getStatusCode());
+        } else {
+            // response web
+            return parent::render($request, $exception);
+        }
     }
 }

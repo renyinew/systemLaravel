@@ -7,7 +7,7 @@ use App\Http\Controllers\Admin\Api\Controller;
 use App\Http\Resources\Admin\Api\Users\MeResource;
 
 /**
- * @Resource("User")
+ * @group User
  */
 class UserController extends Controller
 {
@@ -20,8 +20,9 @@ class UserController extends Controller
      *
      * @return MeResource
      */
-    public function me()
+    public function me(Request $request)
     {
-        return new MeResource($this->user());
+        $response = new MeResource($request->user());
+        return response()->json($response)->setStatusCode(201);
     }
 }
