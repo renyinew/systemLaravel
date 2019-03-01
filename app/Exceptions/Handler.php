@@ -4,7 +4,10 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+// token 验证
 use Illuminate\Auth\AuthenticationException;
+// 表单验证
+use Illuminate\Validation\ValidationException;
 
 class Handler extends ExceptionHandler
 {
@@ -29,17 +32,12 @@ class Handler extends ExceptionHandler
     ];
 
     /**
-     * Report or log an exception.
-     *
-     * @param  \Exception  $exception
-     * @return void
+     * @param Exception $exception
+     * @return mixed|void
+     * @throws Exception
      */
     public function report(Exception $exception)
     {
-        // 检查token
-        if($exception instanceof AuthenticationException) {
-            abort(401, $exception->getMessage());
-        }
         parent::report($exception);
     }
 
@@ -55,19 +53,31 @@ class Handler extends ExceptionHandler
         // Determine whether it is an API interface
         if($request->is('api/*')) {
             $response = [];
-            $error = $this->convertExceptionToResponse($exception);
-            $response['message'] = $exception->getMessage();
-            $response['status_code'] = $error->getStatusCode();
+
+            // token错误信息
+            if($exception instanceof AuthenticationException) {
+                $response['message'] = 'Wrong authorization token.';
+                $response['status_code'] = 401;
+            }
+
+            // 表单验证
+            if($exception instanceof ValidationException) {
+                $response['message'] = 'Data error verification failed.';
+                $response['errors'] = $exception->errors();
+                $response['status_code'] = 422;
+            }
+
+            //
+
+            // debug
             if(config('app.debug')) {
-                if($error->getStatusCode() >= 500) {
-                    $response['debug']['line'] = $exception->getLine(); // error line
-                    $response['debug']['file'] = $exception->getFile(); // error file
-                    $response['debug']['class'] = get_class($exception); // error position
-                    $response['debug']['trace'] = explode("\n", $exception->getTraceAsString()); //Error stack
-                }
+                $response['debug']['line'] = $exception->getLine(); // error line
+                $response['debug']['file'] = $exception->getFile(); // error file
+                $response['debug']['class'] = get_class($exception); // error position
+                $response['debug']['trace'] = explode("\n", $exception->getTraceAsString()); //Error stack
             }
             // response api
-            return response()->json($response, $error->getStatusCode());
+            return response()->json($response)->setStatusCode($response['status_code']);
         } else {
             // response web
             return parent::render($request, $exception);

@@ -3,17 +3,14 @@
 namespace App\Http\Controllers\Admin\Api\Users;
 
 use Illuminate\Http\Request;
-use App\Models\Admin\Api\User;
 use App\Http\Controllers\Admin\Api\Controller;
 use App\Http\Resources\Admin\Api\Users\MeResource;
 
 use App\Http\Requests\Admin\Api\Users\StoreMeUpdate;
 use App\Http\Requests\Admin\Api\Users\StoreMePassword;
 
-use Illuminate\Support\Facades\DB;
-
 /**
- * @group User
+ * @group Me
  */
 class MeController extends Controller
 {
@@ -23,7 +20,7 @@ class MeController extends Controller
     public function current(Request $request)
     {
         $response = new MeResource($request->user());
-        return response()->json($response)->setStatusCode(201);
+        return response()->json($response)->setStatusCode(200);
     }
 
     /**
@@ -33,8 +30,8 @@ class MeController extends Controller
     public function update(Request $request, StoreMeUpdate $update)
     {
         $user = $request->user();
-        $user->update($update->all());
-        return response()->json()->setStatusCode(201);
+        $user->where(['id' => $user->id])->update($update->all());
+        return response()->json()->setStatusCode(200);
     }
 
     /**
@@ -45,7 +42,7 @@ class MeController extends Controller
     public function password(Request $request, StoreMePassword $password)
     {
         $user = $request->user();
-        $user->update($password->all());
-        return response()->json()->setStatusCode(201);
+        $user->where(['id' => $user->id])->update($password->all());
+        return response()->json()->setStatusCode(200);
     }
 }

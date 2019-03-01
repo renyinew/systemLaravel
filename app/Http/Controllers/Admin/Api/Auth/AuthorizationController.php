@@ -60,15 +60,16 @@ class AuthorizationController extends Controller
     }
 
     /**
-     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy()
+    public function destroy(Request $request)
     {
-        if (!empty($this->user)) {
-            $this->user()->token()->revoke();
-            return $this->response->noContent();
+        if (!empty($request->user())) {
+            $request->user()->token()->revoke();
+            return response()->json()->setStatusCode(201);
         } else {
-            return $this->response->errorUnauthorized('The token is invalid.');
+            return response()->json()->setStatusCode(401);
         }
     }
 }

@@ -30,7 +30,7 @@ Route::namespace('Admin\Api')->group(function () {
         // Auth controller
         Route::namespace('Auth')->group(function () {
             // refresh token
-            Route::post('authorization/refresh', 'AuthorizationController@refresh');
+            Route::patch('authorization', 'AuthorizationController@refresh');
 
             // delete token
             Route::delete('authorization', 'AuthorizationController@destroy');
@@ -42,10 +42,10 @@ Route::namespace('Admin\Api')->group(function () {
             Route::get('me', 'MeController@current');
 
             // update current user detail
-            Route::patch('me', 'MeController@update');
+            Route::put('me', 'MeController@update');
 
             // update current user password
-            Route::patch('me/password', 'MeController@password');
+            Route::put('me/password', 'MeController@password');
 
             // get user detail
             Route::get('user', 'UserController@view');
@@ -80,28 +80,68 @@ Route::namespace('Admin\Api')->group(function () {
 
         // Category controller
         Route::namespace('Category')->group(function () {
-            // get tree menu list
-            Route::get('category/select', 'CategoryController@select');
+            // get article tree category list
+            Route::get('category/article/select', 'CategoryController@selectArticle');
 
-            // get tree menu sidebar
-            Route::get('category/sidebar', 'CategoryController@sidebar');
+            // get goods tree category list
+            Route::get('category/goods/select', 'CategoryController@selectGoods');
 
-            // create menu
+            // create category
             Route::post('category', 'CategoryController@create');
 
-            // view menu list
+            // view category list
             Route::get('categorys', 'CategoryController@list');
 
-            // view menu
+            // view article category list
+            Route::get('category/article', 'CategoryController@articleList');
+
+            // view goods category list
+            Route::get('category/goods', 'CategoryController@goodsList');
+
+            // view category
             Route::get('category/{id}', 'CategoryController@view');
 
-            // update menu
+            // update category
             Route::put('category/{id}', 'CategoryController@update');
 
-            // delete menu
+            // delete category
             Route::delete('category/{id}', 'CategoryController@delete');
         });
 
+        // Article controller
+        Route::namespace('Article')->group(function () {
+            // create article
+            Route::post('article', 'ArticleController@crete');
+
+            // get article list
+            Route::get('article', 'ArticleController@list');
+
+            // view article
+            Route::get('article/{id}', 'ArticleController@view');
+
+            // update article
+            Route::put('article/{id}', 'ArticleController@update');
+
+            // trash article
+            Route::put('article/{id}', 'ArticleController@trash');
+
+            // delete article
+            Route::delete('article/{id}', 'ArticleController@delete');
+        });
+
+        // Resource controller
+        Route::namespace('Resource')->group(function () {
+            // create resource
+            Route::post('resource', 'ResourceController@create');
+
+            // get resource list
+            Route::get('resource', 'ResourceController@list');
+
+            // delete resource
+            Route::delete('resource', 'ResourceController@delete');
+        });
+
+        //
     });
 
 });

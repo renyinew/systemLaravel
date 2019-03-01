@@ -24,7 +24,19 @@ class StoreMePassword extends FormRequest
     public function rules()
     {
         return [
-            //
+            'password' => 'required|string'
         ];
     }
+
+    /**
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'password.required' => '密码不能为空',
+            'password.string' => '密码格式错误',
+        ];
+    }
+
 }

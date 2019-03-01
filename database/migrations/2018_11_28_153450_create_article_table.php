@@ -25,8 +25,9 @@ class CreateArticleTable extends Migration
             $table->tinyInteger('hot')->default(0)->comment('热门文章:0普通文章,1热门文章');
             $table->tinyInteger('top')->default(0)->comment('置顶文章:0普通文章,1置顶文章');
             $table->integer('browse')->default(0)->comment('浏览量');
-            $table->string('keywords');
-            $table->string('description');
+            $table->string('keywords')->nullable(true)->comment('关键词');
+            $table->string('description')->nullable(true)->comment('描述');
+            $table->softDeletes()->comment('软删除');
             $table->timestamps();
         });
     }

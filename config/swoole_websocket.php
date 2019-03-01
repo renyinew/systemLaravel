@@ -33,6 +33,8 @@ return [
         // SwooleTW\Http\Websocket\Middleware\DecryptCookies::class,
         // SwooleTW\Http\Websocket\Middleware\StartSession::class,
         // SwooleTW\Http\Websocket\Middleware\Authenticate::class,
+        App\Http\Middleware\WebSocketAuthRewirte::class, // rewirte token
+        App\Http\Middleware\WebSocketAuthorization::class,   // authorization
     ],
 
     /*

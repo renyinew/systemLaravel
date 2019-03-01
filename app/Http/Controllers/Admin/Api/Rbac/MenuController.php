@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin\Api\Rbac;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\Api\Controller;
 use App\Models\Admin\Api\Menu;
 use App\Http\Requests\Admin\Api\Rbac\StoreMenuCreate;
@@ -60,7 +59,7 @@ class MenuController extends Controller
     {
         $model = $menu->findOrFail($id);
         $response = new MenuResource($model);
-        return response()->json($response)->setStatusCode(201);
+        return response()->json($response)->setStatusCode(200);
     }
 
     /**
@@ -82,7 +81,7 @@ class MenuController extends Controller
     public function update($id, StoreMenuUpdate $update, Menu $menu)
     {
         $menu->findOrFail($id)->update($update->all());
-        return response()->json()->setStatusCode(201);
+        return response()->json()->setStatusCode(200);
     }
 
     /**
@@ -93,7 +92,7 @@ class MenuController extends Controller
     public function delete($id, Menu $menu)
     {
         $menu->findOrFail($id)->delete();
-        return response()->json()->setStatusCode(201);
+        return response()->json()->setStatusCode(204);
     }
 
     /**
@@ -111,7 +110,6 @@ class MenuController extends Controller
                 $array = array_merge($array, $this->recursive($value['child_menu'], $n+1));
             }
         }
-
         return $array;
     }
 }

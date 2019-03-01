@@ -23,8 +23,8 @@ class UsersTableSeeder extends Seeder
                 'level' => 1,
                 'status' => 1,
                 'remember_token' => NULL,
-                'created_at' => NULL,
-                'updated_at' => NULL
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
             ],
             [
                 'id' => 2,
@@ -37,8 +37,8 @@ class UsersTableSeeder extends Seeder
                 'level' => 1,
                 'status' => 1,
                 'remember_token' => NULL,
-                'created_at' => NULL,
-                'updated_at' => NULL
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
             ],
         ]);
     }

@@ -7,7 +7,7 @@ use App\Http\Controllers\Admin\Api\Controller;
 
 class UserController extends Controller
 {
-    public function view()
+    public function view($id)
     {
 
     }
