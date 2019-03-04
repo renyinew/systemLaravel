@@ -17,7 +17,7 @@ class CategoryController extends Controller
     public function selectArticle(Category $menu)
     {
         //获取包含顶级的所有树状数据
-        $menus = $menu->findOrFail(1)->where(['type' => 1])->thisMenu->toArray();
+        $menus = $menu->findOrFail(1)->thisMenu->toArray();
         $menus = [$menus];
         $array = $this->recursive($menus);
         //数组生成json响应
@@ -31,7 +31,21 @@ class CategoryController extends Controller
     public function selectGoods(Category $menu)
     {
         //获取包含顶级的所有树状数据
-        $menus = $menu->findOrFail(1)->where(['type' => 0])->thisMenu->toArray();
+        $menus = $menu->findOrFail(1)->thisMenu->toArray();
+        $menus = [$menus];
+        $array = $this->recursive($menus);
+        //数组生成json响应
+        return response()->json($array)->setStatusCode(200);
+    }
+
+    /**
+     * @param Category $menu
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function list(Category $menu)
+    {
+        //获取包含顶级的所有树状数据
+        $menus = $menu->findOrFail(1)->thisMenu->toArray();
         $menus = [$menus];
         $array = $this->recursive($menus);
         //数组生成json响应
@@ -45,9 +59,8 @@ class CategoryController extends Controller
      */
     public function create(StoreCategoryCreate $create, Category $category)
     {
-        $model = $category->create($create->all());
-        $response = new CategoryResource($model);
-        return response()->json($response)->setStatusCode(201);
+        $category->create($create->all());
+        return response()->json()->setStatusCode(200);
     }
 
     /**
@@ -68,7 +81,7 @@ class CategoryController extends Controller
      */
     public function articleList(Category $category)
     {
-        $menus = $category->findOrFail(1)->where(['type' => 1])->childMenu->toArray();
+        $menus = $category->findOrFail(1)->childMenu->toArray();
         return response()->json($menus)->setStatusCode(200);
     }
 
@@ -78,7 +91,7 @@ class CategoryController extends Controller
      */
     public function goodsList(Category $category)
     {
-        $menus = $category->findOrFail(1)->where(['type' => 0])->childMenu->toArray();
+        $menus = $category->findOrFail(1)->childMenu->toArray();
         return response()->json($menus)->setStatusCode(200);
     }
 

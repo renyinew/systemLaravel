@@ -24,13 +24,13 @@ class StoreCategoryCreate extends FormRequest
     public function rules()
     {
         return [
-            'sort' => ['integer'],
-            'type' => ['required', Rule::in([0, 1])],
-            'name' => ['required', 'string'],
-            'p_id' => ['required', 'integer'],
-            'alias' => ['required', 'alpha_dash'],
-            'keywords' => ['string'],
-            'description' => ['string']
+            'sort' => 'integer',
+            'type' => 'required|in:0,1',
+            'name' => 'required|string',
+            'p_id' => 'required|integer',
+            'alias' => 'required|alpha_dash',
+            'keywords' => 'string',
+            'description' => 'string'
         ];
     }
 

@@ -14,6 +14,13 @@ class Category extends Model
     protected $table = 'category';
 
     /**
+     * 可以被批量赋值的属性。
+     *
+     * @var array
+     */
+    protected $fillable = ['sort', 'name', 'type', 'alias', 'p_id', 'keywords', 'description'];
+
+    /**
      * 模型链式调用获取树状数组数据
      * $treeMenus = find($id)->thisMenu;
      */

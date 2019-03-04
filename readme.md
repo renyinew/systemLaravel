@@ -19,6 +19,8 @@ server {
 
     location / {
         try_files $uri $uri/ @swoole;
+        # upload file max size
+        client_max_body_size 1024M;
     }
 
     location @swoole {
@@ -35,10 +37,10 @@ server {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection $connection_upgrade;
-
+        
         # IF https
         # proxy_set_header HTTPS "on";
-
+        
         proxy_pass http://127.0.0.1:1215$suffix;
     }
 }
@@ -54,14 +56,14 @@ server {
 > 账号：`18888888888`，密码：`123456`   
 > 账号：`18888888889`，密码：`123456`   
 
-## 填充基本数据
-`php artisan `
-
 ## 生成加密所需秘钥
 `php artisan passport:keys`
 
 ## 生成客户端
 `php artisan passport:client --password --name='客户端名称'`
+
+## 生成图片文件软链
+`php artisan storage:link`
 
 ## 启动服务
 `php artisan swoole:http start`

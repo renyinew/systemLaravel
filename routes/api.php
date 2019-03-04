@@ -131,14 +131,12 @@ Route::namespace('Admin\Api')->group(function () {
 
         // Resource controller
         Route::namespace('Resource')->group(function () {
-            // create resource
-            Route::post('resource', 'ResourceController@create');
+            // create avatar
+            Route::post('avatar', 'AvatarController@create');
 
-            // get resource list
-            Route::get('resource', 'ResourceController@list');
+            // delete avatar
+            Route::delete('avatar', 'AvatarController@delete');
 
-            // delete resource
-            Route::delete('resource', 'ResourceController@delete');
         });
 
         //

@@ -24,10 +24,10 @@ class StoreArticleUpdate extends FormRequest
     public function rules()
     {
         return [
-            'c_id' => ['required', 'integer'],
-            'title' => ['required', 'string'],
-            'content' => ['required', 'string'],
-            'status' => ['required', Rule::in([0, 1])],
+            'c_id' => 'required|integer',
+            'title' => 'required|string',
+            'content' => 'required|string',
+            'status' => 'required|in:0,1',
             'keywords' => ['string'],
             'description' => ['string']
         ];

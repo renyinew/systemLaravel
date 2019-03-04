@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin\Api\Article;
 
-use Illuminate\Http\Request;
 use App\Models\Admin\Api\Article;
 use App\Http\Controllers\Admin\Api\Controller;
 use App\Http\Resources\Admin\Api\Article\ArticleResource;
