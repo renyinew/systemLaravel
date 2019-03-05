@@ -17,12 +17,6 @@ use League\OAuth2\Server\RequestTypes\AuthorizationRequest;
 class AuthorizationController extends Controller
 {
     /**
-     * 登录授权
-     * @Resource("Authorization", uri="/authorizations")
-     * @Post("/authorizations")
-     * @Versions({"v1"})
-     * @Request({"username": "foo", "password": "bar", "client_id": "client id", "client_secret": "client secret", "grant_type": "password", "scope": ""})
-     *
      * @param AuthorizationRequest $originRequest
      * @param AuthorizationServer $server
      * @param ServerRequestInterface $serverRequest
@@ -67,7 +61,7 @@ class AuthorizationController extends Controller
     {
         if (!empty($request->user())) {
             $request->user()->token()->revoke();
-            return response()->json()->setStatusCode(201);
+            return response()->json()->setStatusCode(204);
         } else {
             return response()->json()->setStatusCode(401);
         }

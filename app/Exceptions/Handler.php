@@ -52,7 +52,9 @@ class Handler extends ExceptionHandler
     {
         // Determine whether it is an API interface
         if($request->is('api/*')) {
+
             $response = [];
+            $response['status_code'] = 500;
 
             // token错误信息
             if($exception instanceof AuthenticationException) {

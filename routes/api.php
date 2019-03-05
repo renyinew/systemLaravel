@@ -24,17 +24,13 @@ Route::namespace('Admin\Api')->group(function () {
     // unauthorized routes
     Route::post('authorization', 'Auth\AuthorizationController@store');
 
+    // refresh token
+    Route::patch('authorization', 'Auth\AuthorizationController@refresh');
+
     // authorization routes
     Route::middleware(['auth:api'])->group(function () {
-
-        // Auth controller
-        Route::namespace('Auth')->group(function () {
-            // refresh token
-            Route::patch('authorization', 'AuthorizationController@refresh');
-
-            // delete token
-            Route::delete('authorization', 'AuthorizationController@destroy');
-        });
+        // delete token
+        Route::delete('authorization', 'Auth\AuthorizationController@destroy');
 
         // User controller
         Route::namespace('Users')->group(function () {
