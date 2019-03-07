@@ -25,7 +25,7 @@ Route::namespace('Admin\Api')->group(function () {
     Route::post('authorization', 'Auth\AuthorizationController@store');
 
     // refresh token
-    Route::patch('authorization', 'Auth\AuthorizationController@refresh');
+    Route::put('authorization', 'Auth\AuthorizationController@refresh');
 
     // authorization routes
     Route::middleware(['auth:api'])->group(function () {
@@ -123,6 +123,24 @@ Route::namespace('Admin\Api')->group(function () {
 
             // delete article
             Route::delete('article/{id}', 'ArticleController@delete');
+        });
+
+        // Goods controller
+        Route::namespace('Goods')->group(function () {
+            // create goods
+            Route::post('goods', 'GoodsController@create');
+
+            // goods list
+            Route::get('goods', 'GoodsController@list');
+
+            // update goods
+            Route::put('goods', 'GoodsController@update');
+
+            // trash goods
+
+
+            // delete goods
+            Route::delete('goods', 'GoodsController@delete');
         });
 
         // Resource controller

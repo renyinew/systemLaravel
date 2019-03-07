@@ -27,7 +27,7 @@ class StoreCategoryUpdate extends FormRequest
             'sort' => 'integer',
             'type' => 'required|in:0,1',
             'name' => 'required|string',
-            'p_id' => 'required|integer',
+            'parent_id' => 'required|integer',
             'alias' => 'required|alpha_dash',
             'keywords' => 'string',
             'description' => 'string'
@@ -48,8 +48,8 @@ class StoreCategoryUpdate extends FormRequest
             'name.required' => '分类名称不能为空',
             'name.string' => '分类名称错误',
 
-            'p_id.required' => '分类上级不能为空',
-            'p_id.integer' => '分类上级错误',
+            'parent_id.required' => '分类上级不能为空',
+            'parent_id.integer' => '分类上级错误',
 
             'alias.required' => '分类别名不能为空',
             'alias.alpha_dash' => '菜单别名只能为字母数字下划线',

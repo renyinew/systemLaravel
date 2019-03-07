@@ -24,7 +24,7 @@ class StoreArticleCreate extends FormRequest
     public function rules()
     {
         return [
-            'c_id' => 'required|integer',
+            'category_id' => 'required|integer',
             'title' => 'required|string',
             'content' => 'required|string',
             'status' => 'required|in:0,1',
@@ -39,8 +39,8 @@ class StoreArticleCreate extends FormRequest
     public function messages()
     {
         return [
-            'c_id.required' => '分类不能为空',
-            'c_id.integer' => '分类错误',
+            'category_id.required' => '分类不能为空',
+            'category_id.integer' => '分类错误',
 
             'title.required' => '文章名称不能为空',
             'title.string' => '文章名称错误',

@@ -68,11 +68,6 @@ server {
 ## 启动服务
 `php artisan swoole:http start`
 
-## API Document
-[api document](public/docs)
-
-
-
 # 二次开发
 
 ### 生成API文档

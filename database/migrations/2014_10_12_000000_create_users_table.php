@@ -14,7 +14,7 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('name')->nullable(true)->comment('用户昵称');
             $table->string('avatar')->nullable(true)->comment('用户头像');
             $table->string('email')->unique()->nullable(true)->comment('用户邮箱');
@@ -26,10 +26,6 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('status')->default(1)->comment('用户状态，默认为正常，1正常，0封禁');
             $table->rememberToken();
             $table->timestamps();
-
-            $table->engine = 'InnoDB';
-            $table->charset = 'utf8';
-            $table->collation = 'utf8_unicode_ci';
         });
     }
 

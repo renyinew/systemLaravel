@@ -18,7 +18,7 @@ class Category extends Model
      *
      * @var array
      */
-    protected $fillable = ['sort', 'name', 'type', 'alias', 'p_id', 'keywords', 'description'];
+    protected $fillable = ['sort', 'name', 'type', 'alias', 'parent_id', 'keywords', 'description'];
 
     /**
      * 模型链式调用获取树状数组数据
@@ -34,6 +34,6 @@ class Category extends Model
      */
     public function childMenu()
     {
-        return $this->hasMany( get_class($this), 'p_id', 'id')->with( 'childMenu');
+        return $this->hasMany( get_class($this), 'parent_id', 'id')->with( 'childMenu');
     }
 }

@@ -26,7 +26,7 @@ class StoreMenuUpdate extends FormRequest
         return [
             'sort' => 'integer',
             'name' => 'required|string',
-            'p_id' => 'required|integer',
+            'parent_id' => 'required|integer',
             'alias' => 'required|alpha_dash',
             'icon' => 'string',
             'url' => 'string'
@@ -44,8 +44,8 @@ class StoreMenuUpdate extends FormRequest
             'name.required' => '菜单名称不能为空',
             'name.string' => '菜单名称错误',
 
-            'p_id.required' => '上级分类不能为空',
-            'p_id.integer' => '上级菜单参数错误',
+            'parent_id.required' => '上级分类不能为空',
+            'parent_id.integer' => '上级菜单参数错误',
 
             'alias.required' => '分类别名不能为空',
             'alias.alpha_dash' => '菜单别名只能为字母数字下划线',

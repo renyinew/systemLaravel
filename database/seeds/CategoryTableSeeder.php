@@ -15,7 +15,7 @@ class CategoryTableSeeder extends Seeder
             'id' => 1,
             'sort' => 0,
             'name' => '顶级分类',
-            'p_id' => 0,
+            'parent_id' => 0,
             'alias' => 'top'
         ]);
     }

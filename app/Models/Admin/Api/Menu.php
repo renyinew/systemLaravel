@@ -18,7 +18,7 @@ class Menu extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'p_id', 'alias', 'icon', 'url'];
+    protected $fillable = ['name', 'parent_id', 'alias', 'icon', 'url'];
 
     /**
      * 模型链式调用获取树状数组数据
@@ -34,6 +34,6 @@ class Menu extends Model
      */
     public function childMenu()
     {
-        return $this->hasMany( get_class($this), 'p_id', 'id')->with( 'childMenu');
+        return $this->hasMany( get_class($this), 'parent_id', 'id')->with( 'childMenu');
     }
 }

@@ -14,10 +14,10 @@ class CreateArticleTable extends Migration
     public function up()
     {
         Schema::create('article', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('u_id')->comment('发布文章用户ID');
+            $table->bigIncrements('id');
+            $table->bigInteger('user_id')->comment('发布文章用户ID');
             $table->tinyInteger('type')->comment('文章类型:0文章,1页面');
-            $table->integer('c_id')->comment('文章所属分类ID，页面为空');
+            $table->integer('category_id')->comment('文章所属分类ID，页面为空');
             $table->string('alias')->comment('页面必填，文章为空');
             $table->string('title')->comment('文章标题');
             $table->text('content')->comment('文章正文');

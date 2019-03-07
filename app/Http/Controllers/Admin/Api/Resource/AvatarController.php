@@ -23,7 +23,7 @@ class AvatarController extends Controller
         $array['size'] = Storage::size($array['path']);
         // 上传人ID
         $user = $create->user();
-        $array['u_id'] = $user->id;
+        $array['user_id'] = $user->id;
         // 保存到数据库
         $model = $file->create($array);
         $response = new AvatarResource($model);
