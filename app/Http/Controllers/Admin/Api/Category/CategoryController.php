@@ -19,7 +19,7 @@ class CategoryController extends Controller
         //获取包含顶级的所有树状数据
         $menus = $menu->findOrFail(1)->thisMenu->toArray();
         $menus = [$menus];
-        $array = $this->recursive($menus);
+        $array = $this->recursive($menus, 0, 1);
         //数组生成json响应
         return response()->json($array)->setStatusCode(200);
     }
@@ -33,7 +33,7 @@ class CategoryController extends Controller
         //获取包含顶级的所有树状数据
         $menus = $menu->findOrFail(1)->thisMenu->toArray();
         $menus = [$menus];
-        $array = $this->recursive($menus);
+        $array = $this->recursive($menus, 0, 0);
         //数组生成json响应
         return response()->json($array)->setStatusCode(200);
     }
@@ -122,15 +122,18 @@ class CategoryController extends Controller
      * 递归函数处理
      * @param $data
      * @param int $n
+     * @param int $type
      * @return array
      */
-    protected function recursive($data, $n = 0)
+    protected function recursive($data, $n = 0, $type = false)
     {
         $array = [];
         foreach($data as $key => $value) {
-            $array[] = [ $value['id'] => str_repeat('|--', $n) . $value['name'] ];
-            if(!empty($value['child_menu'])) {
-                $array = array_merge($array, $this->recursive($value['child_menu'], $n+1));
+            if($type === $value['type'] || $value['type'] === null ) {
+                $array[] = [$value['id'] => str_repeat('|--', $n) . $value['name']];
+                if (!empty($value['child_menu'])) {
+                    $array = array_merge($array, $this->recursive($value['child_menu'], $n + 1, $type));
+                }
             }
         }
         return $array;

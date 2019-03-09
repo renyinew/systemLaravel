@@ -73,6 +73,7 @@ class Handler extends ExceptionHandler
 
             // debug
             if(config('app.debug')) {
+                $response['debug']['message'] = $exception->getMessage();
                 $response['debug']['line'] = $exception->getLine(); // error line
                 $response['debug']['file'] = $exception->getFile(); // error file
                 $response['debug']['class'] = get_class($exception); // error position
