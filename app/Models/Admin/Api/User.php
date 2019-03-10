@@ -3,6 +3,7 @@
 namespace App\Models\Admin\Api;
 
 use Laravel\Passport\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,7 +11,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable;
+    use HasApiTokens, HasRoles, Notifiable;
+
+    protected $guard_name = 'api';
 
     /**
      * The attributes that are mass assignable.
@@ -43,4 +46,6 @@ class User extends Authenticatable
 
         return self::where($credentials)->first();
     }
+
+
 }

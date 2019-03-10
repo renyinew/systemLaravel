@@ -62,7 +62,7 @@ Route::namespace('Admin\Api')->group(function () {
             Route::post('menu', 'MenuController@create');
 
             // view menu list
-            Route::get('menus', 'MenuController@list');
+            Route::get('menus', 'MenuController@lists');
 
             // view menu
             Route::get('menu/{id}', 'MenuController@view');
@@ -77,22 +77,22 @@ Route::namespace('Admin\Api')->group(function () {
         // Category controller
         Route::namespace('Category')->group(function () {
             // get article tree category list
-            Route::get('category/article/select', 'CategoryController@selectArticle');
+            Route::get('category/article/select', 'ArticleController@select');
 
             // get goods tree category list
-            Route::get('category/goods/select', 'CategoryController@selectGoods');
+            Route::get('category/goods/select', 'GoodsController@select');
 
             // create category
             Route::post('category', 'CategoryController@create');
 
             // view category list
-            Route::get('categorys', 'CategoryController@list');
+            Route::get('categorys', 'CategoryController@lists');
 
             // view article category list
-            Route::get('category/article', 'CategoryController@articleList');
+            Route::get('category/article', 'ArticleController@lists');
 
             // view goods category list
-            Route::get('category/goods', 'CategoryController@goodsList');
+            Route::get('category/goods', 'GoodsController@lists');
 
             // view category
             Route::get('category/{id}', 'CategoryController@view');
@@ -106,11 +106,14 @@ Route::namespace('Admin\Api')->group(function () {
 
         // Article controller
         Route::namespace('Article')->group(function () {
+            /**
+             * 最高权限
+             */
             // create article
-            Route::post('article', 'ArticleController@crete');
+            Route::post('article', 'ArticleController@create');
 
-            // get article list
-            Route::get('article', 'ArticleController@list');
+            // get article paginate
+            Route::get('articles', 'ArticleController@paginate');
 
             // view article
             Route::get('article/{id}', 'ArticleController@view');
@@ -119,28 +122,57 @@ Route::namespace('Admin\Api')->group(function () {
             Route::put('article/{id}', 'ArticleController@update');
 
             // trash article
-            Route::put('article/{id}', 'ArticleController@trash');
+            Route::patch('article/trash/{id}', 'ArticleController@trash');
+
+            // trash article
+            Route::patch('article/regain/{id}', 'ArticleController@regain');
 
             // delete article
             Route::delete('article/{id}', 'ArticleController@delete');
+
+            /**
+             * 个人权限
+             */
+            // get article paginate
+            Route::get('articles/mine', 'MineController@paginate');
         });
 
         // Goods controller
         Route::namespace('Goods')->group(function () {
-            // create goods
+            /**
+             * 最高权限
+             */
+            // create article
             Route::post('goods', 'GoodsController@create');
 
-            // goods list
-            Route::get('goods', 'GoodsController@list');
+            // get article paginate
+            Route::get('goods', 'GoodsController@paginate');
 
-            // update goods
-            Route::put('goods', 'GoodsController@update');
+            // view article
+            Route::get('goods/{id}', 'GoodsController@view');
 
-            // trash goods
+            // update article
+            Route::put('goods/{id}', 'GoodsController@update');
 
+            // trash article
+            Route::patch('goods/trash/{id}', 'GoodsController@trash');
 
-            // delete goods
-            Route::delete('goods', 'GoodsController@delete');
+            // trash article
+            Route::patch('goods/regain/{id}', 'GoodsController@regain');
+
+            // delete article
+            Route::delete('goods/{id}', 'GoodsController@delete');
+
+            /**
+             * 个人权限
+             */
+            // get article paginate
+            Route::get('goods/mine', 'MineController@paginate');
+        });
+
+        // Config controller
+        Route::namespace('Order')->group(function () {
+
         });
 
         // Resource controller
@@ -153,7 +185,11 @@ Route::namespace('Admin\Api')->group(function () {
 
         });
 
-        //
+        // Config controller
+        Route::namespace('Config')->group(function () {
+
+        });
+
     });
 
 });

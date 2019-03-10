@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin\Api\Article;
+namespace App\Http\Requests\Admin\Api\Goods;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreArticleCreate extends FormRequest
+class StoreGoodsCreate extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,6 +28,8 @@ class StoreArticleCreate extends FormRequest
             'title' => 'required|string',
             'content' => 'required|string',
             'status' => 'required|in:0,1',
+            'picture' => 'required',
+            'detail' => 'string',
             'keywords' => 'string',
             'description' => 'string'
         ];
@@ -39,21 +41,7 @@ class StoreArticleCreate extends FormRequest
     public function messages()
     {
         return [
-            'category_id.required' => '分类不能为空',
-            'category_id.integer' => '分类错误',
 
-            'title.required' => '文章名称不能为空',
-            'title.string' => '文章名称错误',
-
-            'content.required' => '文章正文不能为空',
-            'content.string' => '文章正文错误',
-
-            'status.required' => '文章状态不能为空',
-            'status.in' => '文章状态错误',
-
-            'keywords.string' => '文章关键词错误',
-
-            'description.string' => '文章描述错误'
         ];
     }
 }

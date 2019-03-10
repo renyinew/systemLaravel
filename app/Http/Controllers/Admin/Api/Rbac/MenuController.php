@@ -66,7 +66,7 @@ class MenuController extends Controller
      * @param Menu $menu
      * @return \Illuminate\Http\JsonResponse
      */
-    public function list(Menu $menu)
+    public function lists(Menu $menu)
     {
         $menus = $menu->findOrFail(1)->childMenu->toArray();
         return response()->json($menus)->setStatusCode(200);

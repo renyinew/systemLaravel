@@ -18,5 +18,5 @@ class File extends Model
      *
      * @var array
      */
-    protected $fillable = ['u_id', 'path', 'size'];
+    protected $fillable = ['user_id', 'path', 'size'];
 }

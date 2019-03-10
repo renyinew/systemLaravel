@@ -28,7 +28,7 @@ class StoreCategoryCreate extends FormRequest
             'type' => 'required|in:0,1',
             'name' => 'required|string',
             'parent_id' => 'required|integer',
-            'alias' => 'required|alpha_dash',
+            'alias' => 'required|alpha_dash|unique:category,alias',
             'keywords' => 'string',
             'description' => 'string'
         ];
@@ -53,6 +53,7 @@ class StoreCategoryCreate extends FormRequest
 
             'alias.required' => '分类别名不能为空',
             'alias.alpha_dash' => '菜单别名只能为字母数字下划线',
+            'alias.unique' => '分类别名只能唯一',
 
             'keywords.string' => '分类关键词错误',
 

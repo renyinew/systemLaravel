@@ -6,6 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreArticleUpdate extends FormRequest
 {
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -28,8 +29,8 @@ class StoreArticleUpdate extends FormRequest
             'title' => 'required|string',
             'content' => 'required|string',
             'status' => 'required|in:0,1',
-            'keywords' => ['string'],
-            'description' => ['string']
+            'keywords' => 'string',
+            'description' => 'string'
         ];
     }
 
