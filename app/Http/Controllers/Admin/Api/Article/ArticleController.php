@@ -10,7 +10,6 @@ use App\Http\Requests\Admin\Api\Article\StoreArticleUpdate;
 
 class ArticleController extends Controller
 {
-
     /**
      * @param StoreArticleCreate $create
      * @param Article $article
@@ -26,9 +25,7 @@ class ArticleController extends Controller
         $articleData['user_id'] = $user->id;
 
         // 文章入库
-        if(! $article->create($articleData)){
-            return response()->json()->setStatusCode(404);
-        }
+        $article->create($articleData);
         return response()->json()->setStatusCode(200);
     }
 
@@ -38,7 +35,8 @@ class ArticleController extends Controller
      */
     public function paginate(Article $article)
     {
-        return response()->json($article->paginate())->setStatusCode(200);
+        $articleData = $article->paginate();
+        return response()->json($articleData)->setStatusCode(200);
     }
 
     /**
@@ -50,7 +48,7 @@ class ArticleController extends Controller
     {
         $model = $article->findOrFail($id);
         $response = new ArticleResource($model);
-        return response()->json($response)->setStatusCode(404);
+        return response()->json($response)->setStatusCode(200);
     }
 
     /**
@@ -61,9 +59,7 @@ class ArticleController extends Controller
      */
     public function update($id, StoreArticleUpdate $update, Article $article)
     {
-        if(! $article->findOrFail($id)->update($update->all())) {
-            return response()->json()->setStatusCode(404);
-        }
+        $article->findOrFail($id)->update($update->all());
         return response()->json()->setStatusCode(200);
     }
 
@@ -74,9 +70,7 @@ class ArticleController extends Controller
      */
     public function trash($id, Article $article)
     {
-        if(! $article->findOrFail($id)->delete()) {
-            return response()->json()->setStatusCode(404);
-        }
+        $article->findOrFail($id)->delete();
         return response()->json()->setStatusCode(200);
     }
 
@@ -87,9 +81,7 @@ class ArticleController extends Controller
      */
     public function regain($id, Article $article)
     {
-        if(! $article->withTrashed()->findOrFail($id)->restore()) {
-            return response()->json()->setStatusCode(404);
-        }
+        $article->withTrashed()->findOrFail($id)->restore();
         return response()->json()->setStatusCode(200);
     }
 
@@ -100,9 +92,7 @@ class ArticleController extends Controller
      */
     public function delete($id, Article $article)
     {
-        if($article->withTrashed()->findOrFail($id)->forceDelete()) {
-            return response()->json()->setStatusCode(404);
-        }
+        $article->withTrashed()->findOrFail($id)->forceDelete();
         return response()->json()->setStatusCode(204);
     }
 }

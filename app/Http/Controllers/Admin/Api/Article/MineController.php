@@ -16,8 +16,7 @@ class MineController extends Controller
     public function paginate(Request $request, Article $article)
     {
         $user = $request->user();
-        return response()->json(
-            $article->where('user_id', $user->id)->paginate()
-        )->setStatusCode(200);
+        $articleData = $article->where('user_id', $user->id)->paginate();
+        return response()->json($articleData)->setStatusCode(200);
     }
 }

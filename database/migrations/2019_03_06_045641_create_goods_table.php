@@ -25,6 +25,8 @@ class CreateGoodsTable extends Migration
             $table->text('content')->comment('商品正文');
             $table->text('picture')->comment('图片列表');
             $table->string('detail')->comment('商品描述');
+            $table->string('keywords')->nullable(true)->comment('商品关键词');
+            $table->string('description')->nullable(true)->comment('商品SEO描述');
             $table->tinyInteger('status')->default(1)->comment('商品状态(0下架，1上架)');
             $table->softDeletes()->comment('软删除');
             $table->timestamps();

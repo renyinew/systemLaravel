@@ -43,7 +43,7 @@ class User extends Authenticatable
         filter_var($username, FILTER_VALIDATE_EMAIL) ?
             $credentials['email'] = $username :
             $credentials['phone'] = $username;
-
+        $credentials['level'] = 1;
         return self::where($credentials)->first();
     }
 

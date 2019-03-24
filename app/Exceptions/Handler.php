@@ -8,6 +8,8 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Auth\AuthenticationException;
 // 表单验证
 use Illuminate\Validation\ValidationException;
+// 模型不存在异常
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class Handler extends ExceptionHandler
 {
@@ -69,7 +71,11 @@ class Handler extends ExceptionHandler
                 $response['status_code'] = 422;
             }
 
-            //
+            // 查找id数据库不存
+            if($exception instanceof ModelNotFoundException) {
+                $response['message'] = 'Data does not exist.';
+                $response['status_code'] = 404;
+            }
 
             // debug
             if(config('app.debug')) {

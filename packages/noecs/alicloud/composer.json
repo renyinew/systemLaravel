@@ -1,0 +1,30 @@
+{
+    "name": "noecs/alicloud",
+    "description": "Laravel Ali Cloud",
+    "keywords": ["laravel", "Ali", "Cloud"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "noecs",
+            "email": "noecs@qq.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Noecs\\AliCloud\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Noecs\\AliCloud\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Noecs\\AliCloud\\AliCloudServiceProvider"
+            ]
+        }
+    }
+}
