@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin\Api\Users;
+namespace App\Http\Requests\Admin\Api\Permission;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreMeUpdate extends FormRequest
+class StoreRoleCreate extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class StoreMeUpdate extends FormRequest
     public function rules()
     {
         return [
-            'avatar' => 'required|string',
+            'guard_name' => 'required|string',
+            'name' => 'required|string'
         ];
     }
 
@@ -34,8 +35,8 @@ class StoreMeUpdate extends FormRequest
     public function messages()
     {
         return [
-            'avatar.required' => '头像不能为空',
-            'avatar.string' => '头像错误',
+            'guard_name.required' => '权限标识不能为空',
+            'name.required' => '权限名称不能为空'
         ];
     }
 }

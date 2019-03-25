@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin\Api\Users;
+namespace App\Http\Requests\Admin\Api\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreMePassword extends FormRequest
+class StoreMeUpdate extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class StoreMePassword extends FormRequest
     public function rules()
     {
         return [
-            'password' => 'required|string'
+            'avatar' => 'required|string',
         ];
     }
 
@@ -34,9 +34,8 @@ class StoreMePassword extends FormRequest
     public function messages()
     {
         return [
-            'password.required' => '密码不能为空',
-            'password.string' => '密码格式错误',
+            'avatar.required' => '头像不能为空',
+            'avatar.string' => '头像错误',
         ];
     }
-
 }

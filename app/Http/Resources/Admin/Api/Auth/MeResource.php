@@ -1,10 +1,14 @@
 <?php
 
-namespace App\Http\Resources\Admin\Api\Rbac;
+namespace App\Http\Resources\Admin\Api\Auth;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MenuResource extends JsonResource
+/**
+ * Class MeResource
+ * @package App\Http\Resources\Admin\Api\Users
+ */
+class MeResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,11 +20,12 @@ class MenuResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'sort' => $this->sort,
-            'p_id' => $this->p_id,
-            'alias' => $this->alias,
-            'icon' => $this->icon,
-            'url' => $this->url,
+            'name' => $this->name,
+            'avatar' => $this->avatar,
+            'email' => $this->email,
+            'phone' => $this->phone,
+            'level' => $this->level,
+            'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

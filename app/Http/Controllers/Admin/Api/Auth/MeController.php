@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Api\Users;
+namespace App\Http\Controllers\Admin\Api\Auth;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\Api\Controller;
-use App\Http\Resources\Admin\Api\Users\MeResource;
+use App\Http\Resources\Admin\Api\Auth\MeResource;
 
-use App\Http\Requests\Admin\Api\Users\StoreMeUpdate;
-use App\Http\Requests\Admin\Api\Users\StoreMePassword;
+use App\Http\Requests\Admin\Api\Auth\StoreMeUpdate;
+use App\Http\Requests\Admin\Api\Auth\StoreMePassword;
 
 /**
  * @group Me

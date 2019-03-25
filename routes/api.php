@@ -16,11 +16,6 @@ use Illuminate\Http\Request;
 // namespace "App\Http\Controllers\Admin"
 Route::namespace('Admin\Api')->group(function () {
 
-    // test route
-    Route::get('test', function(){
-        return 'hello test';
-    });
-
     // unauthorized routes
     Route::post('authorization', 'Auth\AuthorizationController@store');
 
@@ -29,11 +24,14 @@ Route::namespace('Admin\Api')->group(function () {
 
     // authorization routes
     Route::middleware(['auth:api'])->group(function () {
-        // delete token
-        Route::delete('authorization', 'Auth\AuthorizationController@destroy');
 
-        // User controller
-        Route::namespace('Users')->group(function () {
+        Route::namespace('Auth')->group(function () {
+            // delete token
+            Route::delete('authorization', 'AuthorizationController@destroy');
+
+            // get user permission
+            Route::get('me/permissions', 'PermissionController@store');
+
             // get current user detail
             Route::get('me', 'MeController@current');
 
@@ -42,7 +40,10 @@ Route::namespace('Admin\Api')->group(function () {
 
             // update current user password
             Route::put('me/password', 'MeController@password');
+        });
 
+        // User controller
+        Route::namespace('Users')->group(function () {
             // get user detail
             Route::get('user', 'UserController@view');
 
@@ -51,7 +52,7 @@ Route::namespace('Admin\Api')->group(function () {
         });
 
         // Rbac controller
-        Route::namespace('Rbac')->group(function () {
+        Route::namespace('Permission')->group(function () {
             // get tree menu list
             Route::get('menu/select', 'MenuController@select');
 
@@ -72,6 +73,20 @@ Route::namespace('Admin\Api')->group(function () {
 
             // delete menu
             Route::delete('menu/{id}', 'MenuController@delete');
+
+            /****** role ******/
+            // create role
+            Route::post('permissions/role', 'RoleController@create');
+
+            // role lists
+            Route::get('permissions/role', 'RoleController@lists');
+
+            // role update
+            Route::put('permissions/role/{id}', 'RoleController@update');
+
+            // delete role
+            Route::delete('permissions/role/{id}', 'RoleController@delete');
+
         });
 
         // Category controller

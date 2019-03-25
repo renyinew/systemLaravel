@@ -1,10 +1,15 @@
 <?php
 
-namespace App\Http\Requests\Admin\Api\Rbac;
+namespace App\Http\Requests\Admin\Api\Permission;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreMenuUpdate extends FormRequest
+/**
+ * 创建侧栏菜单验证
+ * Class StoreMenuCreate
+ * @package App\Http\Requests\Admin\Api\Rbac
+ */
+class StoreMenuCreate extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

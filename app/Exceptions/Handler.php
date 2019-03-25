@@ -10,6 +10,8 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
 // 模型不存在异常
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+// 权限错误异常
+use Spatie\Permission\Exceptions\UnauthorizedException;
 
 class Handler extends ExceptionHandler
 {
@@ -75,6 +77,12 @@ class Handler extends ExceptionHandler
             if($exception instanceof ModelNotFoundException) {
                 $response['message'] = 'Data does not exist.';
                 $response['status_code'] = 404;
+            }
+
+            // 权限错误
+            if($exception instanceof UnauthorizedException) {
+                $response['message'] = 'Permission verification failed.';
+                $response['status_code'] = 403;
             }
 
             // debug

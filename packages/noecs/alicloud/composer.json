@@ -26,5 +26,6 @@
                 "Noecs\\AliCloud\\AliCloudServiceProvider"
             ]
         }
-    }
+    },
+    "minimum-stability": "dev"
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Api\Rbac;
+namespace App\Http\Controllers\Admin\Api\Permission;
 
-use App\Http\Controllers\Admin\Api\Controller;
 use App\Models\Admin\Api\Menu;
-use App\Http\Requests\Admin\Api\Rbac\StoreMenuCreate;
-use App\Http\Requests\Admin\Api\Rbac\StoreMenuUpdate;
-use App\Http\Resources\Admin\Api\Rbac\MenuResource;
+use App\Http\Controllers\Admin\Api\Controller;
+use App\Http\Requests\Admin\Api\Permission\StoreMenuCreate;
+use App\Http\Requests\Admin\Api\Permission\StoreMenuUpdate;
+use App\Http\Resources\Admin\Api\Permission\MenuResource;
 
 /**
  * @Resource("menu")
