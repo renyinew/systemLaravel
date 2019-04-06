@@ -174,7 +174,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Noecs\AliCloud\AliCloudServiceProvider::class
+        // Noecs\AliCloud\AliCloudServiceProvider::class
     ],
 
     /*

@@ -23,7 +23,10 @@ Route::namespace('Admin\Api')->group(function () {
     Route::put('authorization', 'Auth\AuthorizationController@refresh');
 
     // authorization routes
-    Route::middleware(['auth:api'])->group(function () {
+    Route::middleware([
+        'auth:api',
+        // 'role:super-admin'
+    ])->group(function () {
 
         Route::namespace('Auth')->group(function () {
             // delete token
@@ -36,19 +39,25 @@ Route::namespace('Admin\Api')->group(function () {
             Route::get('me', 'MeController@current');
 
             // update current user detail
-            Route::put('me', 'MeController@update');
+            Route::patch('me', 'MeController@update');
 
             // update current user password
-            Route::put('me/password', 'MeController@password');
+            Route::patch('me/password', 'MeController@password');
         });
 
         // User controller
         Route::namespace('Users')->group(function () {
             // get user detail
-            Route::get('user', 'UserController@view');
+            Route::get('user/{$id}', 'UserController@view');
 
             // get users list
-            Route::get('users', 'UserController@list');
+            Route::get('users', 'UserController@paginate');
+
+            // view user permission
+            Route::get('user/permission/{$id}', 'UserController@viewPermission');
+
+            // set user permission
+            Route::post('user/permission/{$id}', 'UserController@setPermission');
         });
 
         // Rbac controller
@@ -76,16 +85,46 @@ Route::namespace('Admin\Api')->group(function () {
 
             /****** role ******/
             // create role
-            Route::post('permissions/role', 'RoleController@create');
+            Route::post('role', 'RoleController@create');
 
             // role lists
-            Route::get('permissions/role', 'RoleController@lists');
+            Route::get('roles', 'RoleController@lists');
 
             // role update
-            Route::put('permissions/role/{id}', 'RoleController@update');
+            Route::put('role/{id}', 'RoleController@update');
 
             // delete role
-            Route::delete('permissions/role/{id}', 'RoleController@delete');
+            Route::delete('role/{id}', 'RoleController@delete');
+
+            /****** permission ******/
+            // create role
+            Route::post('permission', 'PermissionController@create');
+
+            // role lists
+            Route::get('permissions', 'PermissionController@lists');
+
+            // role update
+            Route::put('permission/{id}', 'PermissionController@update');
+
+            // delete role
+            Route::delete('permission/{id}', 'PermissionController@delete');
+
+            /***** user and role and permission *****/
+            // add permission to a role
+            Route::post('role-to-permission/{role_id}', 'RolePermissionController@create');
+
+            // add permissions to a role
+            Route::post('role-to-permissions/{role_id}', 'RolePermissionController@creates');
+
+            // view role permissions
+            Route::get('role-to-permission/{role_id}', 'RolePermissionController@view');
+
+            // remove role permission
+            Route::delete('role-permission/{role_id}', 'RolePermissionController@delete');
+
+            // remove role permissions
+            Route::delete('role-permission/{role_id}', 'RolePermissionController@deletes');
+
 
         });
 
@@ -186,7 +225,7 @@ Route::namespace('Admin\Api')->group(function () {
         });
 
         // Config controller
-        Route::namespace('Order')->group(function () {
+        Route::namespace('Orders')->group(function () {
 
         });
 

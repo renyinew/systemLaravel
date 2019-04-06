@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin\Api\Permission;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRoleCreate extends FormRequest
+class StorePermissionCreate extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class StoreRoleCreate extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string'
+            'name' => 'required|string',
+            'description' => 'required|string'
         ];
     }
 
@@ -34,7 +35,10 @@ class StoreRoleCreate extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => '权限名称不能为空'
+            'name.required' => '权限标识不能为空',
+            'name.string' => '权限标识格式错误',
+            'description.required' => '权限名称不能为空',
+            'description.string' => '权限名称格式错误'
         ];
     }
 }
