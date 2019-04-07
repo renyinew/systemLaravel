@@ -38,13 +38,12 @@ class RolePermissionController extends Controller
     /**
      * @param $role_id
      * @param Role $role
-     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function view($role_id, Role $role,Request $request)
+    public function view($role_id, Role $role)
     {
-        $user = $request->user();
-        $permiss= $user->getPermissionsViaRoles();
-        return response()->json($permiss)->setStatusCode(200);
+        $role = $role->findById($role_id);
+        $permissions = $role->permissions;
+        return response()->json($permissions)->setStatusCode(200);
     }
 }

@@ -54,10 +54,10 @@ Route::namespace('Admin\Api')->group(function () {
             Route::get('users', 'UserController@paginate');
 
             // view user permission
-            Route::get('user/permission/{$id}', 'UserController@viewPermission');
+            Route::get('user/permission/{id}', 'PermissionController@lists');
 
             // set user permission
-            Route::post('user/permission/{$id}', 'UserController@setPermission');
+            Route::post('user/permission/{id}', 'PermissionController@set');
         });
 
         // Rbac controller

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin\Api\Users;
 
-
 use App\Models\Admin\Api\User;
 use App\Http\Controllers\Admin\Api\Controller;
 use App\Http\Resources\Admin\Api\User\UserResource;
@@ -29,17 +28,5 @@ class UserController extends Controller
     {
         $userData = $user->paginate();
         return response()->json($userData)->setStatusCode(200);
-    }
-
-
-    public function viewPermission($id)
-    {
-
-    }
-
-
-    public function setPermission($id)
-    {
-
     }
 }
